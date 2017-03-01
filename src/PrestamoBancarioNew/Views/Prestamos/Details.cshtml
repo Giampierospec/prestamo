@@ -1,0 +1,80 @@
+@model PrestamoBancarioNew.Models.Prestamo
+
+@{
+    ViewData["Title"] = "Detalles del Prestamo";
+
+}
+@{ 
+    double capital = Model.Capital;
+    double tasa = Model.Tasa;
+    int plazo = Model.Plazo;
+
+}
+
+<h2>Informacion del prestamo del cliente</h2>
+
+<div>
+    <h4>Detalles del Prestamo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.Nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Capital)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Capital)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Plazo) 
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Plazo) meses
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tasa)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Tasa)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Pago</a> |
+    <a asp-action="Index">Devuelta a  la lista</a>
+</div>
+
+<h2>Detalles del Prestamo</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Mes</th>
+            <th>Pago</th>
+            <th>Intereses</th>
+            <th>Amortizacion Principal</th>
+            <th>Amortizacion acumulada</th>
+            <th>Saldo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var detalle in Model.TablaAmortizacion(capital,plazo,tasa))
+        {
+            
+            <tr>
+               <td>@String.Format("{0}",detalle.Mes)</td>
+                <td>@String.Format("{0:C}", Math.Round(detalle.Cuota,2))</td>
+                <td>@String.Format("{0:C}", Math.Round(detalle.Intereses, 2))</td>
+                <td>@String.Format("{0:C}", Math.Round(detalle.AmortizacionPrincipal, 2))</td>
+                <td>@String.Format("{0:C}", Math.Round(detalle.AmortizacionAcumulada, 2))</td>
+                <td>@String.Format("{0:C}", Math.Round(detalle.Capital, 2))</td>
+                
+
+            </tr>
+
+        }
+    </tbody>
+</table>

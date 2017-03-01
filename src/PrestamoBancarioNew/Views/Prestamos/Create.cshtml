@@ -1,0 +1,55 @@
+@model PrestamoBancarioNew.Models.Prestamo
+
+@{
+    ViewData["Title"] = "Solicitar nuevo Prestamo";
+}
+
+<h2>Solicitar</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>Prestamo</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Capital" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Capital" class="form-control" required/>
+                <span asp-validation-for="Capital" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ClienteId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="ClienteId" class ="form-control" asp-items="ViewBag.ClienteId"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Plazo" class="col-md-2 control-label">Plazo(meses)</label>
+            <div class="col-md-10">
+                <input asp-for="Plazo" class="form-control" />
+                <span asp-validation-for="Plazo" class="text-danger" required/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Tasa" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Tasa" class="form-control" required/>
+                <span asp-validation-for="Tasa" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Solicitar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">De vuelta a la lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

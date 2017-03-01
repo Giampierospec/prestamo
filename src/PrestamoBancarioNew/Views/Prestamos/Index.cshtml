@@ -1,0 +1,51 @@
+@model IEnumerable<PrestamoBancarioNew.Models.Prestamo>
+
+@{
+    ViewData["Title"] = "Prestamos Solicitados";
+}
+
+<h2>Prestamos Solicitados</h2>
+
+<p>
+    <a asp-action="Create">Solicitar uno nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+            @Html.DisplayNameFor(model => model.Cliente.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Capital)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plazo) (meses)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tasa)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Cliente.Nombre)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capital)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plazo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tasa)
+            </td>
+            <td>
+                
+                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> 
+             
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
